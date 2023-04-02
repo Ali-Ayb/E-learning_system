@@ -1,5 +1,6 @@
 const Course = require("../models/courseModel.js");
 const Student = require("../models/studentModel.js");
+const Enrollment = require("../models/enrollmentModel.js");
 
 exports.createCourse = async (req, res) => {
   const { name, description } = req.body;
@@ -24,6 +25,7 @@ exports.enrollCourse = async (req, res) => {
   const { studentId, courseId } = req.body;
 
   const student = await Student.findById(studentId);
+  // return res.json(student.email);
   if (!student) {
     return res.status(404).json("Student not found");
   }
@@ -37,14 +39,15 @@ exports.enrollCourse = async (req, res) => {
     return res.status(404).json("Course not found");
   }
 
+  // const addEnrollment = await Enrollment.create(student.email, course.name);
   const addCourseToStudent = await Student.updateOne(
     { _id: studentId },
-    { $push: { courses: courseId } }
+    { $push: { courses: course.name } }
   );
 
   const addStudentToCourse = await Course.updateOne(
     { _id: courseId },
-    { $push: { students: studentId } }
+    { $push: { students: student.email } }
   );
 
   res.json("Course was enrolled successfully");

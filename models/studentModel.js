@@ -13,7 +13,7 @@ const studentSchema = new mongoose.Schema({
   },
   courses: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "Course",
     },
   ],
