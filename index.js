@@ -9,6 +9,9 @@ app.use("/auth", authRouter);
 const blogRouter = require("./routes/blog.routes");
 app.use("/blog", blogRouter);
 
+const courseRouter = require("./routes/course.routes");
+app.use("/course", courseRouter);
+
 app.listen(process.env.PORT, (err) => {
   if (err) console.error(err);
   console.log("Server is running on port ", process.env.PORT);
