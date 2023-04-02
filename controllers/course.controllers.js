@@ -1,9 +1,9 @@
-// const Course = require("../models/courseModel.js");
+const Course = require("../models/courseModel.js");
 
-// exports.createCourse = async (req, res) => {
-//   const { name, discription } = req.body;
+exports.createCourse = async (req, res) => {
+  const { name, discription } = req.body;
 
-//   const blog = await Blog.create({ name, discription });
+  const blog = await Blog.create({ name, discription });
 
-//   res.json(blog);
-// };
+  res.json(blog);
+};
