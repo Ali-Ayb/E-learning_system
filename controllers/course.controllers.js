@@ -18,3 +18,10 @@ exports.getAllCourses = async (req, res) => {
 
   res.json(courses);
 };
+
+exports.enrollCourse = async (studentId, courseId, res) => {
+  db.students.update({ _id: studentId }, { $push: { courses: courseId } });
+  db.courses.update({ _id: courseId }, { $push: { students: studentId } });
+
+  res.json("course was enrolled successfully");
+};
