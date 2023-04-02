@@ -12,6 +12,9 @@ app.use("/blog", blogRouter);
 const courseRouter = require("./routes/course.routes");
 app.use("/course", courseRouter);
 
+const studentRouter = require("./routes/student.routes");
+app.use("/student", studentRouter);
+
 app.listen(process.env.PORT, (err) => {
   if (err) console.error(err);
   console.log("Server is running on port ", process.env.PORT);
