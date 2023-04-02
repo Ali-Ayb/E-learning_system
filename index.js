@@ -16,7 +16,7 @@ const studentRouter = require("./routes/student.routes");
 app.use("/student", studentRouter);
 
 const fileRouter = require("./routes/file.routes");
-app.use("/", fileRouter);
+app.use("/file", fileRouter);
 
 app.listen(process.env.PORT, (err) => {
   if (err) console.error(err);
