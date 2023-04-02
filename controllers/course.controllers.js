@@ -22,11 +22,27 @@ exports.getAllCourses = async (req, res) => {
 
 exports.enrollCourse = async (req, res) => {
   const { studentId, courseId } = req.body;
-  const student = await Student.updateOne(
+
+  const student = await Student.findById(studentId);
+  if (!student) {
+    return res.status(404).json("Student not found");
+  }
+
+  if (student.courses.includes(courseId)) {
+    return res.status(400).json("Student is already enrolled in this course");
+  }
+
+  const course = await Course.findById(courseId);
+  if (!course) {
+    return res.status(404).json("Course not found");
+  }
+
+  const addCourseToStudent = await Student.updateOne(
     { _id: studentId },
     { $push: { courses: courseId } }
   );
-  const course = await Course.updateOne(
+
+  const addStudentToCourse = await Course.updateOne(
     { _id: courseId },
     { $push: { students: studentId } }
   );
