@@ -39,7 +39,13 @@ exports.enrollCourse = async (req, res) => {
     return res.status(404).json("Course not found");
   }
 
-  // const addEnrollment = await Enrollment.create(student.email, course.name);
+  const enrollment = new Enrollment({
+    email: student.email,
+    course_name: course.name,
+  });
+
+  await enrollment.save();
+
   const addCourseToStudent = await Student.updateOne(
     { _id: studentId },
     { $push: { courses: course.name } }
