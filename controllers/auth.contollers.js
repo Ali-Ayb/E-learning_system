@@ -13,10 +13,10 @@ exports.register = async (req, res) => {
   student.email = email;
   student.password = password;
 
-  if (role) user.role = role;
+  if (role) student.role = role;
   await student.save();
-  const { password: hashedPassword, ...newUser } = user.toJSON();
-  res.status(201).json(newUser);
+  const { password: hashedPassword, ...newStudent } = student.toJSON();
+  res.status(201).json(newStudent);
 };
 
 exports.login = async (req, res) => {
