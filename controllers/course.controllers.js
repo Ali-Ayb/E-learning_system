@@ -64,5 +64,18 @@ exports.withDrawCourse = async (req, res) => {
   });
 
   await enrollment.save();
-  res.json("withdraw request is sent succefully");
+  res.json("withdraw request is sent successfully");
+};
+
+exports.approveOrRejectWithdraw = async (req, res) => {
+  const { email, course_name, choice } = req.body;
+
+  const enrollment = new Enrollment({
+    email: email,
+    course_name: course_name,
+    status: choice,
+  });
+
+  await enrollment.save();
+  res.json("choice is sent successfully");
 };
