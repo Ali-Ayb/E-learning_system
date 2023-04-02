@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const enrollementSchema = new mongoose.Schema({
+const enrollmentSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -16,6 +16,6 @@ const enrollementSchema = new mongoose.Schema({
   },
 });
 
-const enrollement = mongoose.model("Enrollement", enrollementSchema);
+const enrollment = mongoose.model("Enrollment", enrollmentSchema);
 
-module.exports = enrollement;
+module.exports = enrollment;
