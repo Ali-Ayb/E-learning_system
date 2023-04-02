@@ -12,3 +12,9 @@ exports.createCourse = async (req, res) => {
 
   res.json(course);
 };
+
+exports.getAllCourses = async (req, res) => {
+  const courses = await Course.find();
+
+  res.json(courses);
+};
