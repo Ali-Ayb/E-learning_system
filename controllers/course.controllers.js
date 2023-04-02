@@ -5,5 +5,10 @@ exports.createCourse = async (req, res) => {
 
   const course = await Course.create({ name, description });
 
+  const existingCourse = await Course.findOne({ name });
+
+  if (existingCourse)
+    return res.status(409).json({ message: "Course already exists" });
+
   res.json(course);
 };
