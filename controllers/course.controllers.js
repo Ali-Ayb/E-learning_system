@@ -39,13 +39,6 @@ exports.enrollCourse = async (req, res) => {
     return res.status(404).json("Course not found");
   }
 
-  const enrollment = new Enrollment({
-    email: student.email,
-    course_name: course.name,
-  });
-
-  await enrollment.save();
-
   const addCourseToStudent = await Student.updateOne(
     { _id: studentId },
     { $push: { courses: course.name } }
@@ -57,4 +50,19 @@ exports.enrollCourse = async (req, res) => {
   );
 
   res.json("Course was enrolled successfully");
+};
+
+exports.withDrawCourse = async (req, res) => {
+  const { studentId, courseId } = req.body;
+
+  const student = await Student.findById(studentId);
+  const course = await Course.findById(courseId);
+
+  const enrollment = new Enrollment({
+    email: student.email,
+    course_name: course.name,
+  });
+
+  await enrollment.save();
+  res.json("withdraw request is sent succefully");
 };
