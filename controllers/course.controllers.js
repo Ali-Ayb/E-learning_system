@@ -69,13 +69,22 @@ exports.withDrawCourse = async (req, res) => {
 
 exports.approveOrRejectWithdraw = async (req, res) => {
   const { email, course_name, choice } = req.body;
+  const enrollment = await Enrollment.updateOne(
+    {
+      email: email,
+      course_name: course_name,
+    },
+    { $set: { status: choice } },
+    { new: true }
+  );
+  if (!enrollment) {
+    return res.status(404).json({
+      error: "Enrollment not found for the given email and course name.",
+    });
+  }
 
-  const enrollment = new Enrollment({
-    email: email,
-    course_name: course_name,
-    status: choice,
+  res.json({
+    message: "Enrollment status updated successfully.",
+    enrollment: enrollment,
   });
-
-  await enrollment.save();
-  res.json("choice is sent successfully");
 };
