@@ -1,4 +1,5 @@
 const Course = require("../models/courseModel.js");
+const Student = require("../models/studentModel.js");
 
 exports.createCourse = async (req, res) => {
   const { name, description } = req.body;
@@ -19,9 +20,16 @@ exports.getAllCourses = async (req, res) => {
   res.json(courses);
 };
 
-exports.enrollCourse = async (studentId, courseId, res) => {
-  db.students.update({ _id: studentId }, { $push: { courses: courseId } });
-  db.courses.update({ _id: courseId }, { $push: { students: studentId } });
+exports.enrollCourse = async (req, res) => {
+  const { studentId, courseId } = req.body;
+  const student = await Student.updateOne(
+    { _id: studentId },
+    { $push: { courses: courseId } }
+  );
+  const course = await Course.updateOne(
+    { _id: courseId },
+    { $push: { students: studentId } }
+  );
 
-  res.json("course was enrolled successfully");
+  res.json("Course was enrolled successfully");
 };
