@@ -25,16 +25,16 @@ exports.enrollCourse = async (req, res) => {
   const { studentId, courseId } = req.body;
 
   const student = await Student.findById(studentId);
-  // return res.json(student.email);
+  const course = await Course.findById(courseId);
+
   if (!student) {
     return res.status(404).json("Student not found");
   }
 
-  if (student.courses.includes(courseId)) {
+  if (student.courses.includes(course.name)) {
     return res.status(400).json("Student is already enrolled in this course");
   }
 
-  const course = await Course.findById(courseId);
   if (!course) {
     return res.status(404).json("Course not found");
   }
