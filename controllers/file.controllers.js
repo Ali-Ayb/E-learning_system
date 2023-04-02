@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const File = require("../models/fileModel.js");
+const exp = require("constants");
 
 exports.addFile = async (req, res) => {
   const base64File = req.body.file;
@@ -19,4 +20,10 @@ exports.addFile = async (req, res) => {
   await file.save();
 
   res.status(200).json({ message: "File uploaded successfully" });
+};
+
+exports.getAllFiles = async (req, res) => {
+  const files = await File.find();
+
+  res.json(files);
 };
