@@ -17,7 +17,6 @@ router.post("/enroll", enrollCourse);
 router.post("/withDrawCourse", withDrawCourse);
 router.post(
   "/approveOrRejectWithdraw",
-  authMidlleware,
   adminMidlleware,
   approveOrRejectWithdraw
 );

@@ -1,5 +1,5 @@
-exports.adminMidlleware = async (req, res, next) => {
-  console.log("admin Middleware");
+exports.adminMiddleware = async (req, res, next) => {
+  if (req.user.role === "admin") return next();
 
-  next();
+  return res.status(401).json({ message: "Unauthorized" });
 };
