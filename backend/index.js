@@ -1,22 +1,19 @@
+const fileRouter = require("./routes/file.routes");
+const { authMidlleware } = require("./middlewares/auth.middleware");
+const authRouter = require("./routes/auth.routes");
+const courseRouter = require("./routes/course.routes");
+const studentRouter = require("./routes/student.routes");
+
 const express = require("express");
+
 const app = express();
 require("dotenv").config();
 app.use(express.json());
 
-const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
-
-const blogRouter = require("./routes/blog.routes");
-app.use("/blog", blogRouter);
-
-const courseRouter = require("./routes/course.routes");
-app.use("/course", courseRouter);
-
-const studentRouter = require("./routes/student.routes");
-app.use("/student", studentRouter);
-
-const fileRouter = require("./routes/file.routes");
-app.use("/file", fileRouter);
+app.use("/course", authMidlleware, courseRouter);
+app.use("/student", authMidlleware, studentRouter);
+app.use("/file", authMidlleware, fileRouter);
 
 app.listen(process.env.PORT, (err) => {
   if (err) console.error(err);

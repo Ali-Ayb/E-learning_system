@@ -1,4 +1,7 @@
 const { Router } = require("express");
+const { authMidlleware } = require("../middlewares/auth.middleware");
+const { adminMidlleware } = require("../middlewares/admin.middleware");
+
 const {
   createCourse,
   getAllCourses,
@@ -12,6 +15,11 @@ router.get("/", getAllCourses);
 router.post("/", createCourse);
 router.post("/enroll", enrollCourse);
 router.post("/withDrawCourse", withDrawCourse);
-router.post("/approveOrRejectWithdraw", approveOrRejectWithdraw);
+router.post(
+  "/approveOrRejectWithdraw",
+  authMidlleware,
+  adminMidlleware,
+  approveOrRejectWithdraw
+);
 
 module.exports = router;
